@@ -1,37 +1,29 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { AppShell, Burger,  Group, Title } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [opened, { toggle }] = useDisclosure(false);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <AppShell
+    header ={{height:60,}}
+    padding = "md"
+    >
+     <AppShell.Header>
+      <Group h="100%" px="md" justify="space-between">
+        <Burger
+          opened={opened}
+          onClick={toggle}
+          size="sm"
+        />
+        <Title order={4}>PokeApi Table</Title>
+      </Group>
+      </AppShell.Header>
+      <AppShell.Main>
+       Main
+      </AppShell.Main>
+      </AppShell>
+  );
 }
 
-export default App
-
-
+export default App;
