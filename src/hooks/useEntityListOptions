@@ -1,0 +1,24 @@
+import { useState } from "react";
+
+function useEntityListOptions() {
+  //getters
+  const [entity, setEntity] = useState("pokeman");
+  const [limit, setLimit] = useState(10);
+  const [page, setPage] = useState(0);
+  const offset = page * limit;
+  //setters
+  const state = {
+    entity,
+    limit,
+    page,
+    offset,
+  };
+
+  const method = {
+    setEntity,
+    setLimit,
+    setPage,
+  };
+  return { state, method } as const;
+}
+export default useEntityListOptions;
