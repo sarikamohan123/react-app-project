@@ -1,6 +1,18 @@
 import { Select, Group, Button } from "@mantine/core";
+import useEntityList from "../hooks/useEntityList";
+import useEntityListOptions from "../hooks/useEntityListOptions.ts";
 
 function OptionForm() {
+  const { state, method } = useEntityListOptions();
+  const { entity, limit, page } = state;
+  const { setEntity, setLimit, setPage } = method;
+
+  const { data } = useEntityList({
+    entity,
+    limit,
+    offset: page * limit,
+  });
+
   const pokemonEntities = [
     "ability",
     "berry",
@@ -51,13 +63,15 @@ function OptionForm() {
     "version",
     "version-group",
   ];
+  const pageCount = data?.count ? Math.ceil(data.count / limit) : 1;
   return (
     <Group>
       <Select
         label="Entity"
         placeholder="Select entity"
         data={pokemonEntities}
-        defaultValue="pokemon"
+        value={entity}
+        onChange={(value) => value && setEntity(value)}
         w={250}
         searchable
       />
@@ -66,15 +80,33 @@ function OptionForm() {
         label="Per Page"
         placeholder="Select"
         data={["5", "10", "15", "20", "25", "50", "100"]}
-        defaultValue="10"
+        value={limit.toString()}
+        onChange={(value) => value && setLimit(Number(value))}
         w={100}
       />
 
       <Button.Group>
-        <Button variant="default">{"<<"}</Button>
-        <Button variant="default">{"<"}</Button>
-        <Button variant="default">{">"}</Button>
-        <Button variant="default">{">>"}</Button>
+        <Button onClick={() => setPage(0)} disabled={page === 0}>
+          {"<<"}
+        </Button>
+        <Button
+          onClick={() => setPage((p) => Math.max(0, p - 1))}
+          disabled={page === 0}
+        >
+          {"<"}
+        </Button>
+        <Button
+          onClick={() => setPage((p) => Math.min(pageCount - 1, p + 1))}
+          disabled={page >= pageCount - 1}
+        >
+          {" >"}
+        </Button>
+        <Button
+          onClick={() => setPage(pageCount - 1)}
+          disabled={page >= pageCount - 1}
+        >
+          {" >>"}
+        </Button>
       </Button.Group>
     </Group>
   );

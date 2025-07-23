@@ -2,7 +2,7 @@ import { useState } from "react";
 
 function useEntityListOptions() {
   //getters
-  const [entity, setEntity] = useState("pokeman");
+  const [entity, setEntity] = useState("pokemon");
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
   const offset = page * limit;
