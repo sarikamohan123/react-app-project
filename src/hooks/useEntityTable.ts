@@ -3,7 +3,7 @@ import {
   getCoreRowModel,
   createColumnHelper,
 } from "@tanstack/react-table";
-import type { ColumnDef } from "@tanstack/react-table";
+import type { AppColumnDef } from "../types/app-column-def";
 import { useMemo } from "react";
 
 interface EntityItem {
@@ -24,19 +24,21 @@ function useEntityTable(data: EntityListResult | undefined) {
   const columnHelper = createColumnHelper<EntityItem>();
 
   // Define columns for the table
-  const columns = useMemo<ColumnDef<EntityItem>[]>(() => {
-    const cols: ColumnDef<EntityItem>[] = [
+  const columns = useMemo<AppColumnDef<EntityItem>[]>(() => {
+    const cols: AppColumnDef<EntityItem>[] = [
       columnHelper.accessor((row): number => extractIdFromUrl(row.url), {
         id: "id",
         header: "ID",
+        size: 60,
         cell: (info) => info.getValue().toString(),
-      }) as ColumnDef<EntityItem>,
+      }) as AppColumnDef<EntityItem>,
 
       columnHelper.accessor((row) => row.url, {
         id: "url",
         header: "URL",
+        size: 200,
         cell: (info) => info.getValue(),
-      }) as ColumnDef<EntityItem>,
+      }) as AppColumnDef<EntityItem>,
     ];
     // add a column for the name
 
@@ -45,8 +47,9 @@ function useEntityTable(data: EntityListResult | undefined) {
         columnHelper.accessor((row): string => row.name ?? "", {
           id: "name",
           header: "Name",
+          size: 100,
           cell: (info) => info.getValue(),
-        }) as ColumnDef<EntityItem>
+        }) as AppColumnDef<EntityItem>
       );
     }
     return cols;
