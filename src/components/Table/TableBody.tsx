@@ -1,4 +1,3 @@
-import React from "react";
 import type { AppColumnDef } from "../../types/app-column-def";
 import { TableRow } from "./TableRow";
 
