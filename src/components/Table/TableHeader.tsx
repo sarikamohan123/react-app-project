@@ -9,9 +9,7 @@ export function TableHeader<TData>({ columns }: TableHeaderProps<TData>) {
   return (
     <div className="table-row table-header">
       {columns.map((col) => (
-        <TableCell key={col.id} header={col.header}>
-          {col.header}
-        </TableCell>
+        <TableCell key={col.id} header={col.header} />
       ))}
     </div>
   );

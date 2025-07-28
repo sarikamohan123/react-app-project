@@ -6,7 +6,7 @@ import {
 import type { AppColumnDef } from "../types/app-column-def";
 import { useMemo } from "react";
 
-interface EntityItem {
+export interface EntityItem {
   name?: string;
   url: string;
 }
@@ -61,6 +61,7 @@ function useEntityTable(data: EntityListResult | undefined) {
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
-  return table;
+  const rows = table.getRowModel().rows.map((row) => row.original);
+  return { rows, columns };
 }
 export default useEntityTable;
