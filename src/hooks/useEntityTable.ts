@@ -21,7 +21,8 @@ function extractIdFromUrl(url: string): number {
 }
 //Hook to convert raw data into table format
 function useEntityTable(data: EntityListResult | undefined) {
-  const columnHelper = createColumnHelper<EntityItem>();
+  // Memoize columnHelper so it's not recreated on every render
+  const columnHelper = useMemo(() => createColumnHelper<EntityItem>(), []);
 
   // Define columns for the table
   const columns = useMemo<AppColumnDef<EntityItem>[]>(() => {

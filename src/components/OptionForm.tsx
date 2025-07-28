@@ -1,11 +1,27 @@
 import { Select, Group, Button } from "@mantine/core";
 import useEntityList from "../hooks/useEntityList";
-import useEntityListOptions from "../hooks/useEntityListOptions.ts";
+// import useEntityListOptions from "../hooks/useEntityListOptions.ts";
 
-function OptionForm() {
-  const { state, method } = useEntityListOptions();
-  const { entity, limit, page } = state;
-  const { setEntity, setLimit, setPage } = method;
+export interface OptionFormProps {
+  entity: string;
+  limit: number;
+  page: number;
+  setEntity: (value: string) => void;
+  setLimit: (value: number) => void;
+  setPage: (value: number | ((prev: number) => number)) => void;
+}
+
+export function OptionForm({
+  entity,
+  limit,
+  page,
+  setEntity,
+  setLimit,
+  setPage,
+}: OptionFormProps) {
+  // const { state, method } = useEntityListOptions();
+  // const { entity, limit, page } = state;
+  // const { setEntity, setLimit, setPage } = method;
 
   const { data } = useEntityList({
     entity,
