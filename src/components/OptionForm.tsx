@@ -1,34 +1,24 @@
-import { Select, Group, Button } from "@mantine/core";
-import useEntityList from "../hooks/useEntityList";
-// import useEntityListOptions from "../hooks/useEntityListOptions.ts";
+import { Select, Group } from "@mantine/core";
 
 export interface OptionFormProps {
   entity: string;
   limit: number;
-  page: number;
+  offset: number;
+  totalCount: number;
   setEntity: (value: string) => void;
   setLimit: (value: number) => void;
-  setPage: (value: number | ((prev: number) => number)) => void;
+  setOffset: (value: number | ((prev: number) => number)) => void;
 }
 
 export function OptionForm({
   entity,
   limit,
-  page,
+  offset,
+  totalCount,
   setEntity,
   setLimit,
-  setPage,
+  setOffset,
 }: OptionFormProps) {
-  // const { state, method } = useEntityListOptions();
-  // const { entity, limit, page } = state;
-  // const { setEntity, setLimit, setPage } = method;
-
-  const { data } = useEntityList({
-    entity,
-    limit,
-    offset: page * limit,
-  });
-
   const pokemonEntities = [
     "ability",
     "berry",
@@ -79,7 +69,11 @@ export function OptionForm({
     "version",
     "version-group",
   ];
-  const pageCount = data?.count ? Math.ceil(data.count / limit) : 1;
+
+  //TODO: logic to calculate current page ,totalpages
+  const currentPage = Math.floor(offset / limit) + 1;
+  const totalPages = Math.ceil(totalCount / limit);
+
   return (
     <Group>
       <Select
@@ -87,7 +81,12 @@ export function OptionForm({
         placeholder="Select entity"
         data={pokemonEntities}
         value={entity}
-        onChange={(value) => value && setEntity(value)}
+        // onChange={(value) => value && setEntity(value)}
+        onChange={(value) => {
+          if (value) {
+            setEntity(value);
+          }
+        }}
         w={250}
         searchable
       />
@@ -101,29 +100,32 @@ export function OptionForm({
         w={100}
       />
 
-      <Button.Group>
-        <Button onClick={() => setPage(0)} disabled={page === 0}>
-          {"<<"}
-        </Button>
-        <Button
-          onClick={() => setPage((p) => Math.max(0, p - 1))}
-          disabled={page === 0}
-        >
-          {"<"}
-        </Button>
-        <Button
-          onClick={() => setPage((p) => Math.min(pageCount - 1, p + 1))}
-          disabled={page >= pageCount - 1}
-        >
-          {" >"}
-        </Button>
-        <Button
-          onClick={() => setPage(pageCount - 1)}
-          disabled={page >= pageCount - 1}
-        >
-          {" >>"}
-        </Button>
-      </Button.Group>
+      <button onClick={() => setOffset(0)} disabled={offset === 0}>
+        {"<<"}First
+      </button>
+      <button
+        onClick={() => setOffset((prev) => Math.max(0, prev - limit))}
+        disabled={offset === 0}
+      >
+        {"<"}Previous
+      </button>
+      <span>
+        Page {currentPage} of {totalPages}
+      </span>
+      <button
+        onClick={() =>
+          setOffset((prev) => Math.min(prev + limit, (totalPages - 1) * limit))
+        }
+        disabled={currentPage >= totalPages}
+      >
+        Next {">"}
+      </button>
+      <button
+        onClick={() => setOffset((totalPages - 1) * limit)}
+        disabled={currentPage >= totalPages}
+      >
+        Last{">>"}
+      </button>
     </Group>
   );
 }

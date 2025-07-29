@@ -4,20 +4,18 @@ function useEntityListOptions() {
   //getters
   const [entity, setEntity] = useState("pokemon");
   const [limit, setLimit] = useState(10);
-  const [page, setPage] = useState(0);
-  const offset = page * limit;
+  const [offset, setOffset] = useState(0);
   //setters
   const state = {
     entity,
     limit,
-    page,
     offset,
   };
 
   const method = {
     setEntity,
     setLimit,
-    setPage,
+    setOffset,
   };
   return { state, method } as const;
 }
