@@ -1,34 +1,22 @@
-import { Select, Group, Button } from "@mantine/core";
-import useEntityList from "../hooks/useEntityList";
-// import useEntityListOptions from "../hooks/useEntityListOptions.ts";
+import { Select, Group } from "@mantine/core";
 
 export interface OptionFormProps {
   entity: string;
   limit: number;
-  page: number;
+  offset: number;
   setEntity: (value: string) => void;
   setLimit: (value: number) => void;
-  setPage: (value: number | ((prev: number) => number)) => void;
+  setOffset: (value: number | ((prev: number) => number)) => void;
 }
 
 export function OptionForm({
   entity,
   limit,
-  page,
+  offset,
   setEntity,
   setLimit,
-  setPage,
+  setOffset,
 }: OptionFormProps) {
-  // const { state, method } = useEntityListOptions();
-  // const { entity, limit, page } = state;
-  // const { setEntity, setLimit, setPage } = method;
-
-  const { data } = useEntityList({
-    entity,
-    limit,
-    offset: page * limit,
-  });
-
   const pokemonEntities = [
     "ability",
     "berry",
@@ -79,7 +67,9 @@ export function OptionForm({
     "version",
     "version-group",
   ];
-  const pageCount = data?.count ? Math.ceil(data.count / limit) : 1;
+
+  //TODO: logic to calculate current page, totalpages
+
   return (
     <Group>
       <Select
@@ -87,7 +77,11 @@ export function OptionForm({
         placeholder="Select entity"
         data={pokemonEntities}
         value={entity}
-        onChange={(value) => value && setEntity(value)}
+        onChange={(value) => {
+          if (value) {
+            setEntity(value);
+          }
+        }}
         w={250}
         searchable
       />
@@ -97,11 +91,15 @@ export function OptionForm({
         placeholder="Select"
         data={["5", "10", "15", "20", "25", "50", "100"]}
         value={limit.toString()}
-        onChange={(value) => value && setLimit(Number(value))}
+        onChange={(value) => {
+          if (value) {
+            setLimit(Number(value));
+          }
+        }}
         w={100}
       />
 
-      <Button.Group>
+      {/* <Button.Group>
         <Button onClick={() => setPage(0)} disabled={page === 0}>
           {"<<"}
         </Button>
@@ -123,7 +121,7 @@ export function OptionForm({
         >
           {" >>"}
         </Button>
-      </Button.Group>
+      </Button.Group> */}
     </Group>
   );
 }

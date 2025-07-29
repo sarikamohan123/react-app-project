@@ -15,6 +15,8 @@ interface EntityListResult {
   results: EntityItem[];
 }
 
+const empty = [] as EntityItem[];
+
 function extractIdFromUrl(url: string): number {
   const parts = url.split("/").filter(Boolean);
   return Number(parts[parts.length - 1]);
@@ -58,8 +60,10 @@ function useEntityTable(data: EntityListResult | undefined) {
 
   // Create the table instance
   const table = useReactTable({
-    data: data?.results ?? [],
+    data: data?.results ?? empty,
     columns,
+    manualPagination: true,
+    rowCount: data?.results.length,
     getCoreRowModel: getCoreRowModel(),
   });
   const rows = table.getRowModel().rows.map((row) => row.original);

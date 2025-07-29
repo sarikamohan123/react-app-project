@@ -11,7 +11,7 @@ function App() {
   //Destructuring  the custom hook to get entity list options
   const { state, method } = useEntityListOptions();
   const { entity, limit, offset } = state;
-  const { setEntity, setLimit, setPage } = method;
+  const { setEntity, setLimit, setOffset } = method;
   //Query to fetch data from the API
   const { data } = useEntityList({ entity, limit, offset });
   //Using the custom hook to convert raw data into table format
@@ -30,10 +30,10 @@ function App() {
         <OptionForm
           entity={entity}
           limit={limit}
-          page={state.page}
+          offset={offset}
           setEntity={setEntity}
           setLimit={setLimit}
-          setPage={setPage}
+          setOffset={setOffset}
         />
         <ResponsiveTable data={rows} columns={columns} />
       </AppShell.Main>
