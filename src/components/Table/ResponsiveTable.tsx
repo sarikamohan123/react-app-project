@@ -3,6 +3,8 @@ import { TableBody } from "./TableBody";
 import type { AppColumnDef } from "../../types/app-column-def";
 import type { EntityItem } from "../../hooks/useEntityTable";
 
+import "./responsiveTable.css";
+
 export interface ResponsiveTableProps {
   data: EntityItem[];
   columns: AppColumnDef<EntityItem>[];
