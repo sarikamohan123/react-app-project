@@ -8,19 +8,27 @@
 
   
 @media screen and (min-width: 768px) {
-.responsive-table .row {
+.responsive-table .row,
+.responsive-table .table-row
+ {
   display: grid;
   grid-template-columns: var(--grid-template-columns);
   gap: 1rem;
-  padding: 0.5rem 1rem;
-  align-items: space-between ;
+  align-items: center;;
   border-bottom: 1px solid #333;
   width:100%;
 }
+ .responsive-table .table-header {
+    font-weight: bold;
+    background-color: #f4f4f4;
+    border-bottom: 2px solid black;
+  }
 
 .responsive-table .cell {
   /* Normal cell styling */
-  padding: 0.25rem 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  border-right: 1px solid #ccc;
 }
 
 /* Hide cell label on desktop */
