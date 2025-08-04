@@ -13,7 +13,7 @@ function App() {
   const { entity, limit, offset } = state;
   const { setEntity, setLimit, setOffset } = method;
   //Query to fetch data from the API
-  const { data } = useEntityList({ entity, limit, offset });
+  const { data, isLoading } = useEntityList({ entity, limit, offset });
   const totalCount = data?.count ?? 0;
 
   //Using the custom hook to convert raw data into table format
@@ -38,7 +38,7 @@ function App() {
           setLimit={setLimit}
           setOffset={setOffset}
         />
-        <ResponsiveTable data={rows} columns={columns} />
+        <ResponsiveTable data={rows} columns={columns} isLoading={isLoading} />
       </AppShell.Main>
     </AppShell>
   );
