@@ -13,7 +13,6 @@
  {
   display: grid;
   grid-template-columns: var(--grid-template-columns);
-  gap: 1rem;
   align-items: center;;
   border-bottom: 1px solid #333;
   width:100%;
