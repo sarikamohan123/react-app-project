@@ -17,9 +17,7 @@ export function TableHeader<TData>({ columns }: TableHeaderProps<TData>) {
       }
     >
       {columns.map((col) => (
-        <TableCell key={col.id} header={col.header}>
-          {col.header}
-        </TableCell>
+        <TableCell key={col.id} header={col.header}></TableCell>
       ))}
     </div>
   );

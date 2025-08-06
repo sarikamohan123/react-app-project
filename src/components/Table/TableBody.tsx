@@ -17,7 +17,7 @@ export function TableBody<TData extends { url: string }>({
 }: TableBodyProps<TData>) {
   // Generate grid template columns based on the column definitions
   const gridTemplate = getGridTemplateColumns(columns);
-  if (isLoading || true) {
+  if (isLoading) {
     return (
       <div className="table-body">
         {Array.from({ length: skeletonCount }).map((_, index) => (

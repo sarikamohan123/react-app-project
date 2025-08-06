@@ -101,16 +101,16 @@ export function OptionForm({
       />
 
       <button onClick={() => setOffset(0)} disabled={offset === 0}>
-        {"<<"}First
+        {"<<"}
       </button>
       <button
         onClick={() => setOffset((prev) => Math.max(0, prev - limit))}
         disabled={offset === 0}
       >
-        {"<"}Previous
+        {"<"}
       </button>
       <span>
-        Page {currentPage} of {totalPages}
+        {currentPage} of {totalPages}
       </span>
       <button
         onClick={() =>
@@ -118,13 +118,13 @@ export function OptionForm({
         }
         disabled={currentPage >= totalPages}
       >
-        Next {">"}
+        {">"}
       </button>
       <button
         onClick={() => setOffset((totalPages - 1) * limit)}
         disabled={currentPage >= totalPages}
       >
-        Last{">>"}
+        {">>"}
       </button>
     </Group>
   );
