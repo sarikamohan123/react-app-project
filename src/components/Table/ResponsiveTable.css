@@ -13,7 +13,6 @@
  {
   display: grid;
   grid-template-columns: var(--grid-template-columns);
-  gap: 1rem;
   align-items: center;;
   border-bottom: 1px solid #333;
   width:100%;
@@ -35,4 +34,37 @@
 .responsive-table .cell .label {
   display: none;
 }
+}
+
+/* Mobile view*/
+@media screen and (max-width:767px){
+ .responsive-table .table-header{
+  display:none;
+ }
+
+  .responsive-table .row{
+    display:flex;
+    flex-direction:column
+
+  }
+
+  .responsive-table .row:nth-child(odd){
+    background-color: #f9f9f9;
+  }
+
+  .responsive-table .cell{
+    display: flex;
+    justify-content: space-between;
+
+  }
+
+  .responsive-table .label{
+    display: inline-block;
+
+  }
+
+  .responsive-table .cell .value{
+   text-align: right;
+  }
+
 }

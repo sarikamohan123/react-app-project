@@ -1,4 +1,4 @@
-import { Skeleton } from "@mantine/core";
+import { Box, Skeleton } from "@mantine/core";
 
 export interface TableSkeletonRowProps {
   gridTemplate: string;
@@ -9,14 +9,21 @@ export function TableSkeletonRow({
   gridTemplate,
   columnCount,
 }: TableSkeletonRowProps) {
+  const rowHeight = 25.46;
   return (
-    <div
+    <Box
       className="row"
-      style={{ "--grid-template-columns": gridTemplate } as React.CSSProperties}
+      p={3}
+      style={{
+        "--grid-template-columns": gridTemplate,
+        height: `${rowHeight}px`,
+      }}
     >
       {Array.from({ length: columnCount }).map((_, i) => (
-        <Skeleton key={i} height={50} />
+        <Box className="cell" key={i}>
+          <Skeleton height={rowHeight * 0.8} />
+        </Box>
       ))}
-    </div>
+    </Box>
   );
 }

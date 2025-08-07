@@ -75,7 +75,7 @@ export function OptionForm({
   const totalPages = Math.ceil(totalCount / limit);
 
   return (
-    <Group>
+    <Group align="flex-end" mb="md" wrap="wrap">
       <Select
         label="Entity"
         placeholder="Select entity"
@@ -99,33 +99,36 @@ export function OptionForm({
         onChange={(value) => value && setLimit(Number(value))}
         w={100}
       />
-
-      <button onClick={() => setOffset(0)} disabled={offset === 0}>
-        {"<<"}First
-      </button>
-      <button
-        onClick={() => setOffset((prev) => Math.max(0, prev - limit))}
-        disabled={offset === 0}
-      >
-        {"<"}Previous
-      </button>
-      <span>
-        Page {currentPage} of {totalPages}
-      </span>
-      <button
-        onClick={() =>
-          setOffset((prev) => Math.min(prev + limit, (totalPages - 1) * limit))
-        }
-        disabled={currentPage >= totalPages}
-      >
-        Next {">"}
-      </button>
-      <button
-        onClick={() => setOffset((totalPages - 1) * limit)}
-        disabled={currentPage >= totalPages}
-      >
-        Last{">>"}
-      </button>
+      <Group>
+        <button onClick={() => setOffset(0)} disabled={offset === 0}>
+          {"<<"}
+        </button>
+        <button
+          onClick={() => setOffset((prev) => Math.max(0, prev - limit))}
+          disabled={offset === 0}
+        >
+          {"<"}
+        </button>
+        <span>
+          {currentPage} of {totalPages}
+        </span>
+        <button
+          onClick={() =>
+            setOffset((prev) =>
+              Math.min(prev + limit, (totalPages - 1) * limit)
+            )
+          }
+          disabled={currentPage >= totalPages}
+        >
+          {">"}
+        </button>
+        <button
+          onClick={() => setOffset((totalPages - 1) * limit)}
+          disabled={currentPage >= totalPages}
+        >
+          {">>"}
+        </button>
+      </Group>
     </Group>
   );
 }
