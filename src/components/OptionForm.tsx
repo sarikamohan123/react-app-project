@@ -7,7 +7,8 @@ export interface OptionFormProps {
   totalCount: number;
   setEntity: (value: string) => void;
   setLimit: (value: number) => void;
-  setOffset: (value: number | ((prev: number) => number)) => void;
+  setOffset: (value: number) => void;
+  // setOffset: (value: number | ((prev: number) => number)) => void;
 }
 
 export function OptionForm({
@@ -104,7 +105,9 @@ export function OptionForm({
           {"<<"}
         </button>
         <button
-          onClick={() => setOffset((prev) => Math.max(0, prev - limit))}
+          // onClick={() => setOffset((prev) => Math.max(0, prev - limit))}
+          //updated onclick handler since  setOffset now expects a number ;not a function
+          onClick={() => setOffset(Math.max(0, offset - limit))}
           disabled={offset === 0}
         >
           {"<"}
@@ -114,9 +117,7 @@ export function OptionForm({
         </span>
         <button
           onClick={() =>
-            setOffset((prev) =>
-              Math.min(prev + limit, (totalPages - 1) * limit)
-            )
+            setOffset(Math.min(offset + limit, (totalPages - 1) * limit))
           }
           disabled={currentPage >= totalPages}
         >
