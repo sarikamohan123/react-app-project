@@ -1,3 +1,4 @@
+// import { useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
 
 function useEntityListOptions() {
@@ -18,11 +19,18 @@ function useEntityListOptions() {
     searchParams.set("offset", "0");
     setSearchParams(searchParams);
   };
-
   const setOffset = (value: number) => {
-    searchParams.set("Offset", value.toString());
+    searchParams.set("offset", value.toString());
     setSearchParams(searchParams);
   };
+
+  // const setOffset = useCallback(
+  //   (value: number) => {
+  //     searchParams.set("offset", value.toString());
+  //     setSearchParams(searchParams);
+  //   },
+  //   [searchParams, setSearchParams]
+  // );
 
   //getters
   // const [entity, setEntity] = useState("pokemon");

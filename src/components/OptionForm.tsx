@@ -71,7 +71,7 @@ export function OptionForm({
     "version-group",
   ];
 
-  //TODO: logic to calculate current page ,totalpages
+  //logic to calculate current page ,totalpages
   const currentPage = Math.floor(offset / limit) + 1;
   const totalPages = Math.ceil(totalCount / limit);
 

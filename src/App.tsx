@@ -12,6 +12,7 @@ function App() {
   const { state, method } = useEntityListOptions();
   const { entity, limit, offset } = state;
   const { setEntity, setLimit, setOffset } = method;
+  console.log(offset);
   //Query to fetch data from the API
   const { data, isLoading } = useEntityList({ entity, limit, offset });
   const totalCount = data?.count ?? 0;
