@@ -1,4 +1,10 @@
-import { Select, Group } from "@mantine/core";
+import { Select, Group, ActionIcon, Tooltip } from "@mantine/core";
+import {
+  IconChevronsLeft,
+  IconChevronLeft,
+  IconChevronsRight,
+  IconChevronRight,
+} from "@tabler/icons-react";
 
 export interface OptionFormProps {
   entity: string;
@@ -7,7 +13,7 @@ export interface OptionFormProps {
   totalCount: number;
   setEntity: (value: string) => void;
   setLimit: (value: number) => void;
-  setOffset: (value: number | ((prev: number) => number)) => void;
+  setOffset: (value: number) => void;
 }
 
 export function OptionForm({
@@ -70,7 +76,7 @@ export function OptionForm({
     "version-group",
   ];
 
-  //TODO: logic to calculate current page ,totalpages
+  //logic to calculate current page ,totalpages
   const currentPage = Math.floor(offset / limit) + 1;
   const totalPages = Math.ceil(totalCount / limit);
 
@@ -81,7 +87,6 @@ export function OptionForm({
         placeholder="Select entity"
         data={pokemonEntities}
         value={entity}
-        // onChange={(value) => value && setEntity(value)}
         onChange={(value) => {
           if (value) {
             setEntity(value);
@@ -99,35 +104,63 @@ export function OptionForm({
         onChange={(value) => value && setLimit(Number(value))}
         w={100}
       />
-      <Group>
-        <button onClick={() => setOffset(0)} disabled={offset === 0}>
-          {"<<"}
-        </button>
-        <button
-          onClick={() => setOffset((prev) => Math.max(0, prev - limit))}
-          disabled={offset === 0}
-        >
-          {"<"}
-        </button>
+      <Group gap="sm">
+        <Tooltip label="First">
+          <ActionIcon
+            aria-label="First Page"
+            variant="light"
+            size="lg"
+            radius="md"
+            disabled={offset === 0}
+            onClick={() => setOffset(0)}
+          >
+            <IconChevronsLeft />
+          </ActionIcon>
+        </Tooltip>
+
+        <Tooltip label="Previous">
+          <ActionIcon
+            aria-label="Previous Page"
+            variant="light"
+            size="lg"
+            radius="md"
+            disabled={offset === 0}
+            onClick={() => setOffset(Math.max(0, offset - limit))}
+          >
+            <IconChevronLeft />
+          </ActionIcon>
+        </Tooltip>
+
         <span>
           {currentPage} of {totalPages}
         </span>
-        <button
-          onClick={() =>
-            setOffset((prev) =>
-              Math.min(prev + limit, (totalPages - 1) * limit)
-            )
-          }
-          disabled={currentPage >= totalPages}
-        >
-          {">"}
-        </button>
-        <button
-          onClick={() => setOffset((totalPages - 1) * limit)}
-          disabled={currentPage >= totalPages}
-        >
-          {">>"}
-        </button>
+
+        <Tooltip label="Next">
+          <ActionIcon
+            aria-label="Next Page"
+            variant="light"
+            size="lg"
+            radius="md"
+            disabled={currentPage >= totalPages}
+            onClick={() =>
+              setOffset(Math.min(offset + limit, (totalPages - 1) * limit))
+            }
+          >
+            <IconChevronRight />
+          </ActionIcon>
+        </Tooltip>
+        <Tooltip label="Last">
+          <ActionIcon
+            aria-label="Last Page"
+            variant="light"
+            size="lg"
+            radius="md"
+            disabled={currentPage >= totalPages}
+            onClick={() => setOffset((totalPages - 1) * limit)}
+          >
+            <IconChevronsRight />
+          </ActionIcon>
+        </Tooltip>
       </Group>
     </Group>
   );
