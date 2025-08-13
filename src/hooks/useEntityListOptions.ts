@@ -24,18 +24,6 @@ function useEntityListOptions() {
     setSearchParams(searchParams);
   };
 
-  // const setOffset = useCallback(
-  //   (value: number) => {
-  //     searchParams.set("offset", value.toString());
-  //     setSearchParams(searchParams);
-  //   },
-  //   [searchParams, setSearchParams]
-  // );
-
-  //getters
-  // const [entity, setEntity] = useState("pokemon");
-  // const [limit, setLimit] = useState(10);
-  // const [offset, setOffset] = useState(0);
   //setters
   const state = {
     entity,
