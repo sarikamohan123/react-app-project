@@ -1,41 +1,68 @@
-// import { useCallback } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearch, useNavigate } from "@tanstack/react-router";
+import { indexRoute } from "../routes/index";
 
-function useEntityListOptions() {
-  const [searchParams, setSearchParams] = useSearchParams();
+export default function useEntityListOptions() {
+  // Get current search params from router  state
+  const search = useSearch({ from: indexRoute.id }) as {
+    entity?: string;
+    limit?: number;
+    offset?: number;
+  };
+  // const [searchParams, setSearchParams] = useSearchParams();
 
-  const entity = searchParams.get("entity") ?? "pokemon";
-  const limit = parseInt(searchParams.get("limit") ?? "10");
-  const offset = parseInt(searchParams.get("offset") ?? "0");
+  // const entity = searchParams.get("entity") ?? "pokemon";
+  // const limit = parseInt(searchParams.get("limit") ?? "10");
+  // const offset = parseInt(searchParams.get("offset") ?? "0");
+  // Read params with fallback values
+  const navigate = useNavigate({ from: indexRoute.id });
+
+  const entity = search.entity ?? "pokemon";
+  const limit = search.limit ?? 10;
+  const offset = search.offset ?? 0;
+
+  // define setters using navigate
+  const setSearch = (patch: Partial<typeof search>) =>
+    navigate({
+      to: ".",
+      search: (prev) => ({ ...prev, ...patch }),
+    });
 
   const setEntity = (value: string) => {
-    searchParams.set("entity", value);
-    searchParams.set("offset", "0");
-    setSearchParams(searchParams);
+    setSearch({ entity: value, offset: 0 });
   };
 
   const setLimit = (value: number) => {
-    searchParams.set("limit", value.toString());
-    searchParams.set("offset", "0");
-    setSearchParams(searchParams);
+    setSearch({ limit: value, offset: 0 });
   };
+
   const setOffset = (value: number) => {
-    searchParams.set("offset", value.toString());
-    setSearchParams(searchParams);
+    setSearch({ offset: value });
   };
+
+  // const setLimit = (value: number) => {
+  //   searchParams.set("limit", value.toString());
+  //   searchParams.set("offset", "0");
+  //   setSearchParams(searchParams);
+  // };
+  // const setOffset = (value: number) => {
+  //   searchParams.set("offset", value.toString());
+  //   setSearchParams(searchParams);
+  // };
 
   //setters
-  const state = {
-    entity,
-    limit,
-    offset,
-  };
+  // const state = {
+  //   entity,
+  //   limit,
+  //   offset,
+  // };
 
-  const method = {
-    setEntity,
-    setLimit,
-    setOffset,
-  };
-  return { state, method } as const;
+  // const method = {
+  //   setEntity,
+  //   setLimit,
+  //   setOffset,
+  // };
+  return {
+    state: { entity, limit, offset },
+    method: { setEntity, setLimit, setOffset },
+  } as const;
 }
-export default useEntityListOptions;
