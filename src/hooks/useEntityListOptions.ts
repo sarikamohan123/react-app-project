@@ -8,11 +8,7 @@ export default function useEntityListOptions() {
     limit?: number;
     offset?: number;
   };
-  // const [searchParams, setSearchParams] = useSearchParams();
 
-  // const entity = searchParams.get("entity") ?? "pokemon";
-  // const limit = parseInt(searchParams.get("limit") ?? "10");
-  // const offset = parseInt(searchParams.get("offset") ?? "0");
   // Read params with fallback values
   const navigate = useNavigate({ from: indexRoute.id });
 
