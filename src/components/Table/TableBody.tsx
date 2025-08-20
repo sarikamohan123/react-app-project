@@ -8,12 +8,14 @@ export interface TableBodyProps<TData extends { url: string }> {
   columns: AppColumnDef<TData>[];
   isLoading: boolean;
   skeletonCount?: number;
+  onRowClick?: (item: TData) => void;
 }
 export function TableBody<TData extends { url: string }>({
   data,
   columns,
   isLoading,
   skeletonCount = 3,
+  onRowClick,
 }: TableBodyProps<TData>) {
   // Generate grid template columns based on the column definitions
   const gridTemplate = getGridTemplateColumns(columns);
@@ -38,6 +40,7 @@ export function TableBody<TData extends { url: string }>({
           item={item}
           columns={columns}
           gridTemplate={gridTemplate}
+          onRowClick={onRowClick}
         />
       ))}
     </div>

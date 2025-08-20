@@ -51,6 +51,8 @@ export const allowedEntities = [
   "version-group",
 ] as const;
 
+export type AllowedEntity = (typeof allowedEntities)[number];
+
 export const DetailsParamsSchema = z.object({
   entity: z.enum(allowedEntities),
   id: z.coerce.number().int().positive(),
