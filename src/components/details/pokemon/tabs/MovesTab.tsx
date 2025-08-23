@@ -20,18 +20,18 @@ function getLevelUpMoves(moves: PokemonMove[], limit = 20) {
         )?.level_learned_at || 0;
       return levelA - levelB;
     })
-    .slice(0, 20);
+    .slice(0, limit);
 }
 
 export default function MovesTab({ data }: { data: PokemonData }) {
-  const levelUps = getLevelUpMoves(data.moves, (limit = 20));
+  const levelUps = getLevelUpMoves(data.moves, 20);
   return (
     <Card withBorder padding="md">
       <Title order={3} mb="md" c="blue.6">
         Level-up Moves (First 20)
       </Title>
       <Stack gap="xs">
-        {levelUpMoves.map((move, index) => {
+        {levelUps.map((move, index) => {
           const levelDetail = move.version_group_details.find(
             (detail) => detail.move_learn_method.name === "level-up"
           );
