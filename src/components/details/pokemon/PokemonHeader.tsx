@@ -7,6 +7,7 @@ import {
   Image,
   Button,
   Center,
+  Skeleton,
 } from "@mantine/core";
 import type { PokemonData } from "./types";
 import { typeColors } from "./const.ts";
@@ -16,13 +17,39 @@ interface PokemonHeaderProps {
   data: PokemonData;
   showShiny: boolean;
   onToggleShiny: () => void;
+  isLoading: boolean;
 }
 
 export default function PokemonHeader({
   data,
   showShiny,
   onToggleShiny,
+  isLoading,
 }: PokemonHeaderProps) {
+  if (isLoading) {
+    return (
+      <Stack gap="md" mb="xl">
+        <Group justify="space-between" align="flex-start">
+          <div>
+            <Skeleton height={30} width={160} />
+            <Skeleton height={20} width={60} mt="sm" />
+          </div>
+          <Group gap="xs">
+            <Skeleton height={28} width={80} radius="xl" />
+            <Skeleton height={28} width={80} radius="xl" />
+          </Group>
+        </Group>
+
+        <Center>
+          <Stack align="center" gap="sm">
+            <Skeleton height={200} width={200} radius="md" />
+            <Skeleton height={36} width={120} radius="md" />
+          </Stack>
+        </Center>
+      </Stack>
+    );
+  }
+
   return (
     <Stack gap="md" mb="xl">
       <Group justify="space-between" align="flex-start">

@@ -1,56 +1,64 @@
 import { useState } from "react";
 import {
   Card,
-  Text,
-  Badge,
-  Group,
-  Stack,
-  Tabs,
-  Progress,
-  Image,
+  // Text,
+  // Badge,
+  // Group,
+  // Stack,
+  // Tabs,
+  //Progress,
+  // Image,
   Container,
-  Title,
-  Button,
+  //Title,
+  //Button,
   Divider,
-  SimpleGrid,
-  Box,
-  Center,
+  //SimpleGrid,
+  //Box,
+  //Center,
 } from "@mantine/core";
 
 import type { PokemonData } from "./types";
-import { typeColors, statNames } from "./const.ts";
-import { formatName, getStatColor } from "./utility.ts";
+import PokemonHeader from "./PokemonHeader";
+// import { set } from "zod";
+// import { typeColors } from "./const.ts";
+// import { formatName } from "./utility.ts";
 
-export default function PokemonDetails({ data }: { data: PokemonData }) {
+export default function PokemonDetails({
+  data,
+  isLoading,
+}: {
+  data: PokemonData;
+  isLoading: boolean;
+}) {
   // export default function PokemonDetails({ pokemon }: PokemonDetailsProps) {
   const pokemon = data;
   const [showShiny, setShowShiny] = useState(false);
-  const [activeTab, setActiveTab] = useState<string | null>("overview");
+  // const [activeTab, setActiveTab] = useState<string | null>("overview");
 
-  const levelUpMoves = pokemon.moves
-    .filter((move) =>
-      move.version_group_details.some(
-        (detail) => detail.move_learn_method.name === "level-up"
-      )
-    )
-    .sort((a, b) => {
-      const levelA =
-        a.version_group_details.find(
-          (d) => d.move_learn_method.name === "level-up"
-        )?.level_learned_at || 0;
-      const levelB =
-        b.version_group_details.find(
-          (d) => d.move_learn_method.name === "level-up"
-        )?.level_learned_at || 0;
-      return levelA - levelB;
-    })
-    .slice(0, 20);
+  // const levelUpMoves = pokemon.moves
+  //   .filter((move) =>
+  //     move.version_group_details.some(
+  //       (detail) => detail.move_learn_method.name === "level-up"
+  //     )
+  //   )
+  //   .sort((a, b) => {
+  //     const levelA =
+  //       a.version_group_details.find(
+  //         (d) => d.move_learn_method.name === "level-up"
+  //       )?.level_learned_at || 0;
+  //     const levelB =
+  //       b.version_group_details.find(
+  //         (d) => d.move_learn_method.name === "level-up"
+  //       )?.level_learned_at || 0;
+  //     return levelA - levelB;
+  //   })
+  //   .slice(0, 20);
 
   return (
     <Container size="lg" py="xl">
       <Card shadow="md" padding="xl" radius="md">
         {/* Header Section */}
-        <Stack gap="md" mb="xl">
+        {/* <Stack gap="md" mb="xl">
           <Group justify="space-between" align="flex-start">
             <div>
               <Title order={1} size="h1" c="blue.7">
@@ -74,10 +82,10 @@ export default function PokemonDetails({ data }: { data: PokemonData }) {
                 </Badge>
               ))}
             </Group>
-          </Group>
+          </Group> */}
 
-          {/* Sprite Display */}
-          <Center>
+        {/* Sprite Display */}
+        {/* <Center>
             <Stack align="center" gap="sm">
               <Image
                 src={
@@ -99,20 +107,25 @@ export default function PokemonDetails({ data }: { data: PokemonData }) {
               </Button>
             </Stack>
           </Center>
-        </Stack>
-
+        </Stack> */}
+        <PokemonHeader
+          data={pokemon}
+          showShiny={showShiny}
+          onToggleShiny={() => setShowShiny((prev) => !prev)}
+          isLoading={isLoading}
+        />
         <Divider mb="xl" />
 
         {/* Tabbed Content */}
-        <Tabs value={activeTab} onChange={setActiveTab}>
+        {/* <Tabs value={activeTab} onChange={setActiveTab}>
           <Tabs.List grow>
             <Tabs.Tab value="overview">Overview</Tabs.Tab>
             <Tabs.Tab value="stats">Stats</Tabs.Tab>
             <Tabs.Tab value="abilities">Abilities</Tabs.Tab>
             <Tabs.Tab value="moves">Moves</Tabs.Tab>
-          </Tabs.List>
+          </Tabs.List> */}
 
-          <Tabs.Panel value="overview" pt="xl">
+        {/* <Tabs.Panel value="overview" pt="xl">
             <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xl">
               <Card withBorder padding="md">
                 <Title order={3} mb="md" c="blue.6">
@@ -170,9 +183,9 @@ export default function PokemonDetails({ data }: { data: PokemonData }) {
                 </SimpleGrid>
               </Card>
             </SimpleGrid>
-          </Tabs.Panel>
+          </Tabs.Panel> */}
 
-          <Tabs.Panel value="stats" pt="xl">
+        {/* <Tabs.Panel value="stats" pt="xl">
             <Card withBorder padding="md">
               <Title order={3} mb="md" c="blue.6">
                 Base Stats
@@ -196,9 +209,9 @@ export default function PokemonDetails({ data }: { data: PokemonData }) {
                 ))}
               </Stack>
             </Card>
-          </Tabs.Panel>
+          </Tabs.Panel> */}
 
-          <Tabs.Panel value="abilities" pt="xl">
+        {/* <Tabs.Panel value="abilities" pt="xl">
             <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
               {pokemon.abilities.map((ability, index) => (
                 <Card key={index} withBorder padding="md">
@@ -218,9 +231,9 @@ export default function PokemonDetails({ data }: { data: PokemonData }) {
                 </Card>
               ))}
             </SimpleGrid>
-          </Tabs.Panel>
+          </Tabs.Panel> */}
 
-          <Tabs.Panel value="moves" pt="xl">
+        {/* <Tabs.Panel value="moves" pt="xl">
             <Card withBorder padding="md">
               <Title order={3} mb="md" c="blue.6">
                 Level-up Moves (First 20)
@@ -249,8 +262,8 @@ export default function PokemonDetails({ data }: { data: PokemonData }) {
                 })}
               </Stack>
             </Card>
-          </Tabs.Panel>
-        </Tabs>
+          </Tabs.Panel> */}
+        {/* </Tabs> */}
       </Card>
     </Container>
   );

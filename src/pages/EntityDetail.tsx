@@ -1,8 +1,8 @@
 import { useParams } from "@tanstack/react-router";
 import type { DetailsParams } from "../routes/detail-params";
 import { useQuery } from "@tanstack/react-query";
-import { Container, Title, Loader, Center, Alert, Code } from "@mantine/core";
-import PokemonDetail from "../components/details/PokemonDetail";
+import { Container, Title, Alert, Code } from "@mantine/core";
+import PokemonDetail from "../components/details/pokemon/PokemonDetail";
 
 //  const Details_Route_Id = "/$entity/$id" as const;
 
@@ -14,6 +14,7 @@ export default function EntityDetail() {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["entityDetail", entity, id],
     queryFn: async () => {
+      await new Promise((resolve) => setTimeout(resolve, 3000));
       const response = await fetch(`https://pokeapi.co/api/v2/${entity}/${id}`);
       if (!response.ok)
         throw new Error(
@@ -23,15 +24,15 @@ export default function EntityDetail() {
     },
     staleTime: 60_000,
   });
-  if (isLoading) {
-    return (
-      <Container size="md" p="md">
-        <Center mih={200}>
-          <Loader />
-        </Center>
-      </Container>
-    );
-  }
+  //   if (isLoading) {
+  //     return (
+  //       <Container size="md" p="md">
+  //         <Center mih={200}>
+  //           <Loader />
+  //         </Center>
+  //       </Container>
+  //     );
+  //   }
   if (isError) {
     return (
       <Container size="md" p="md">
@@ -56,7 +57,7 @@ export default function EntityDetail() {
   return (
     <Container size="lg" p="md">
       {entity === "pokemon" ? (
-        <PokemonDetail data={data} />
+        <PokemonDetail data={data} isLoading={isLoading} />
       ) : (
         <>
           <Title order={2} mb="sm">
