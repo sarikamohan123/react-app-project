@@ -1,9 +1,45 @@
-import { Card, Title, Box, Group, Text, Progress, Stack } from "@mantine/core";
+import {
+  Card,
+  Title,
+  Box,
+  Group,
+  Text,
+  Progress,
+  Stack,
+  Skeleton,
+} from "@mantine/core";
 import type { PokemonData } from "../types";
 import { statNames } from "../const";
 import { formatName, getStatColor } from "../utility";
 
-export default function StatsTab({ data }: { data: PokemonData }) {
+export default function StatsTab({
+  data,
+  isLoading,
+}: {
+  data: PokemonData;
+  isLoading: boolean;
+}) {
+  const skeletonRows = Array.from({ length: 6 });
+  if (isLoading) {
+    return (
+      <Card withBorder padding="md">
+        <Title order={3} mb="md" c="blue.6">
+          Base Stats
+        </Title>
+        <Stack gap="md">
+          {skeletonRows.map((_, idx) => (
+            <Box key={idx}>
+              <Group justify="space-between" mb={5}>
+                <Skeleton height={18} width={80} />
+                <Skeleton height={18} width={80} />
+              </Group>
+              <Skeleton height={20} width="100%" />
+            </Box>
+          ))}
+        </Stack>
+      </Card>
+    );
+  }
   return (
     <Card withBorder padding="md">
       <Title order={3} mb="md" c="blue.6">

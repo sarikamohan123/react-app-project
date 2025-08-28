@@ -23,7 +23,36 @@ function getLevelUpMoves(moves: PokemonMove[], limit = 20) {
     .slice(0, limit);
 }
 
-export default function MovesTab({ data }: { data: PokemonData }) {
+export default function MovesTab({
+  data,
+  isLoading,
+}: {
+  data: PokemonData;
+  isLoading: boolean;
+}) {
+  if (isLoading) {
+    const skeletonItems = Array.from({ length: 6 });
+    return (
+      <Card withBorder padding="md">
+        <Title order={3} mb="md" c="blue.6">
+          Level-up Moves (First 20)
+        </Title>
+        <Stack gap="xs">
+          {skeletonItems.map((_, idx) => (
+            <Group
+              key={idx}
+              justify="space-between"
+              p="sm"
+              style={{
+                borderRadius: 4,
+                backgroundColor: "var(--mantine-color-gray-0)",
+              }}
+            ></Group>
+          ))}
+        </Stack>
+      </Card>
+    );
+  }
   const levelUps = getLevelUpMoves(data.moves, 20);
   return (
     <Card withBorder padding="md">

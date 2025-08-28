@@ -3,8 +3,7 @@ import type { DetailsParams } from "../routes/detail-params";
 import { useQuery } from "@tanstack/react-query";
 import { Container, Title, Alert, Code } from "@mantine/core";
 import PokemonDetail from "../components/details/pokemon/PokemonDetail";
-
-//  const Details_Route_Id = "/$entity/$id" as const;
+import { Link } from "@tanstack/react-router";
 
 export default function EntityDetail() {
   const { entity, id } = useParams({
@@ -24,38 +23,33 @@ export default function EntityDetail() {
     },
     staleTime: 60_000,
   });
-  //   if (isLoading) {
-  //     return (
-  //       <Container size="md" p="md">
-  //         <Center mih={200}>
-  //           <Loader />
-  //         </Center>
-  //       </Container>
-  //     );
-  //   }
+  const backLink = (
+    <Link
+      to="/"
+      style={{
+        display: "inline-block",
+        marginBottom: "1rem",
+        color: "#1c7ed6",
+      }}
+    >
+      Back to List
+    </Link>
+  );
+
   if (isError) {
     return (
       <Container size="md" p="md">
+        {backLink}
         <Alert color="red" title="Failed to Load">
           {(error as Error).message}
         </Alert>
       </Container>
     );
   }
-  //   return (
-  //     <Container size="md" p="md">
-  //         { entity === "pokemon" ?(
-  //         <PokemonDetail data={data} />
-  //         ): {}}
-  //       <Title order={2} mb="sm">
-  //         {entity} #{id}
-  //       </Title>
-  //       <Code block>{JSON.stringify(data, null, 2)}</Code>
-  //     </Container>
-  //   );
-  // }
+
   return (
     <Container size="lg" p="md">
+      {backLink}
       {entity === "pokemon" ? (
         <PokemonDetail data={data} isLoading={isLoading} />
       ) : (

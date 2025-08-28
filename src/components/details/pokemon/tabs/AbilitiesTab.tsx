@@ -1,8 +1,43 @@
-import { SimpleGrid, Card, Group, Text, Badge } from "@mantine/core";
+import {
+  SimpleGrid,
+  Card,
+  Group,
+  Text,
+  Badge,
+  Title,
+  Skeleton,
+  Stack,
+  Box,
+} from "@mantine/core";
 import type { PokemonData } from "../types";
 import { formatName } from "../utility";
 
-export default function AbilitiesTab({ data }: { data: PokemonData }) {
+export default function AbilitiesTab({
+  data,
+  isLoading,
+}: {
+  data: PokemonData;
+  isLoading: boolean;
+}) {
+  if (isLoading) {
+    const skeletonRows = Array.from({ length: 2 });
+    return (
+      <Card withBorder padding="md">
+        <Title order={3} mb="md" c="blue.6">
+          Abilities
+        </Title>
+        <Stack gap="sm">
+          {skeletonRows.map((_, idx) => (
+            <Box key={idx}>
+              <Skeleton height={18} width="40%" />
+              <Skeleton height={14} width="80" />
+            </Box>
+          ))}
+        </Stack>
+      </Card>
+    );
+  }
+
   return (
     <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
       {data.abilities.map((ability, index) => (
