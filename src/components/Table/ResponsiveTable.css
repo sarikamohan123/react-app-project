@@ -1,7 +1,15 @@
-.responsive-table {
+.responsive-table.poke-table{
     width:100%;
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
    
+}   
+
+.responsive-table .row:nth-child(odd) {
+  background-color: var(--mantine-color-gray-0);
+}
+
+.mantine-dark .responsive-table .row:nth-child(odd) {
+  background-color: var(--mantine-color-gray-8);
 } 
 
 /* DESKTOP view */
@@ -34,6 +42,10 @@
 .responsive-table .cell .label {
   display: none;
 }
+
+.mantine-dark .table .row:nth-child(odd) {
+    background-color: var(--mantine-color-dark-8);
+  }
 }
 
 /* Mobile view*/
@@ -52,6 +64,10 @@
     background-color: #f9f9f9;
   }
 
+  /* .mantine-dark .responsive-table .row:nth-child(odd){
+    background-color: #2c2e33;
+  } */
+
   .responsive-table .cell{
     display: flex;
     justify-content: space-between;
@@ -68,3 +84,6 @@
   }
 
 }
+ .mantine-dark .responsive-table .row:nth-child(odd){
+    background-color: #2c2e33;
+  }

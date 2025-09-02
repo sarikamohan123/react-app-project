@@ -28,7 +28,7 @@ export function ResponsiveTable({
     navigate({ to: `/${entity}/${id}`, params: { entity, id } });
   };
   return (
-    <div className="responsive-table">
+    <div className="responsive-table poke-table">
       <TableHeader columns={columns} />
       <TableBody
         data={data}
