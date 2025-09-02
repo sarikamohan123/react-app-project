@@ -1,0 +1,11 @@
+.list-view-layout {
+    display:flex;
+    flex-direction:column;
+    height:100vh;
+    overflow:hidden;
+}
+
+.scrollable-table-container {
+    overflow-y: auto;
+    flex-grow: 1;
+}

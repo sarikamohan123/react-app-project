@@ -28,14 +28,16 @@ export function ResponsiveTable({
     navigate({ to: `/${entity}/${id}`, params: { entity, id } });
   };
   return (
-    <div className="responsive-table poke-table">
+    <div className="responsive-table">
       <TableHeader columns={columns} />
-      <TableBody
-        data={data}
-        columns={columns}
-        isLoading={isLoading}
-        onRowClick={onRowClick}
-      />
+      <div className="table-scroll">
+        <TableBody
+          data={data}
+          columns={columns}
+          isLoading={isLoading}
+          onRowClick={onRowClick}
+        />
+      </div>
     </div>
   );
 }

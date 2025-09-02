@@ -24,7 +24,7 @@ export default function ListView() {
   const { rows, columns } = useEntityTable(data);
 
   return (
-    <>
+    <div className="list-view-layout">
       <OptionForm
         entity={entity}
         limit={limit}
@@ -34,12 +34,14 @@ export default function ListView() {
         setLimit={setLimit}
         setOffset={setOffset}
       />
-      <ResponsiveTable
-        data={rows}
-        columns={columns}
-        isLoading={isLoading}
-        entity={safeEntity}
-      />
-    </>
+      <div className="scrollable-table-container">
+        <ResponsiveTable
+          data={rows}
+          columns={columns}
+          isLoading={isLoading}
+          entity={safeEntity}
+        />
+      </div>
+    </div>
   );
 }
