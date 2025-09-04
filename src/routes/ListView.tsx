@@ -4,7 +4,6 @@ import useEntityTable from "../hooks/useEntityTable";
 import useEntityList from "../hooks/useEntityList";
 import useEntityListOptions from "../hooks/useEntityListOptions";
 import { allowedEntities, type AllowedEntity } from "./detail-params";
-import "./ListView.css";
 
 const isAllowed = (e: string | undefined): e is AllowedEntity =>
   (allowedEntities as readonly string[]).includes(e ?? "");
@@ -25,7 +24,7 @@ export default function ListView() {
   const { rows, columns } = useEntityTable(data);
 
   return (
-    <div className="list-view-layout">
+    <div>
       <OptionForm
         entity={entity}
         limit={limit}
@@ -35,14 +34,12 @@ export default function ListView() {
         setLimit={setLimit}
         setOffset={setOffset}
       />
-      <div className="scrollable-table-container">
-        <ResponsiveTable
-          data={rows}
-          columns={columns}
-          isLoading={isLoading}
-          entity={safeEntity}
-        />
-      </div>
+      <ResponsiveTable
+        data={rows}
+        columns={columns}
+        isLoading={isLoading}
+        entity={safeEntity}
+      />
     </div>
   );
 }
