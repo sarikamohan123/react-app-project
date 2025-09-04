@@ -24,7 +24,7 @@ export default function ListView() {
   const { rows, columns } = useEntityTable(data);
 
   return (
-    <>
+    <div>
       <OptionForm
         entity={entity}
         limit={limit}
@@ -40,6 +40,6 @@ export default function ListView() {
         isLoading={isLoading}
         entity={safeEntity}
       />
-    </>
+    </div>
   );
 }
