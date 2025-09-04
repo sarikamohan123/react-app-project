@@ -4,6 +4,7 @@ import useEntityTable from "../hooks/useEntityTable";
 import useEntityList from "../hooks/useEntityList";
 import useEntityListOptions from "../hooks/useEntityListOptions";
 import { allowedEntities, type AllowedEntity } from "./detail-params";
+import "./ListView.css";
 
 const isAllowed = (e: string | undefined): e is AllowedEntity =>
   (allowedEntities as readonly string[]).includes(e ?? "");

@@ -1,14 +1,17 @@
 .responsive-table{
-  /* display:flex;
-  flex-direction:column; */
-    width:100%;
+  display:flex;
+  flex-direction:column;
+    width:100%; 
+    height:100%
+    /* max-height:calc(100svh -228px); */
    
 }   
 
-/* .table-scroll{
-  overflow-y: auto;
+.responsive-table .table-scroll {
   flex-grow: 1;
-} */
+  /* max-height:100%; */
+  overflow-y:auto;
+}
 
 
 /* DESKTOP view */
